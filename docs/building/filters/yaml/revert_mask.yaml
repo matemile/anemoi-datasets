@@ -1,0 +1,10 @@
+input:
+  pipe:
+    - source: # mars, grib, netcdf, etc.
+      # source attributes here
+      # ...
+      # Must load a nomask variable
+
+    - revert_mask:
+        nomask: nomask  # Name of nodata (input) variable
+        mask: mask    # Name of data (output) variable
