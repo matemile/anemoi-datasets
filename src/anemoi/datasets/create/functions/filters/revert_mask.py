@@ -42,7 +42,7 @@ def execute(context, input, nomask, mask="mask"):
     processed_fields = defaultdict(dict)
 
     for f in input:
-        key = f.metadata(namespace="netcdf")
+        key = f.metadata(namespace="mars")
         param = key.pop("param")
         if param == nomask:
             key = tuple(key.items())
