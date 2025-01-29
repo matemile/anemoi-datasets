@@ -42,17 +42,7 @@ def execute(context, input, nomask, mask="mask"):
     processed_fields = defaultdict(dict)
 
     for f in input:
-        key = f.metadata(namespace="mars")
-        param = key.pop("param")
-        if param == nomask:
-            key = tuple(key.items())
-
-            if param in processed_fields[key]:
-                raise ValueError(f"Duplicate field {param} for {key}")
-
-            output = (f.to_numpy(flatten=True) * (-1.0) + 1.0)
-            result.append(NewDataField(f, output, mask))
-        else:
-            result.append(f)
+        output = (f.to_numpy(flatten=True) * (-1.0) + 1.0)
+        result.append(NewDataField(f, output, mask))
 
     return result
