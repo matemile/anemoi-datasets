@@ -1,0 +1,10 @@
+input:
+  pipe:
+    - source: # mars, grib, netcdf, etc.
+      # source attributes here
+      # ...
+      # Must load a nomask variable
+
+    - remove_nans_radar:
+        raw: raw  # Name of nodata (input) variable
+        ppdata: pp    # Name of data (output) variable
