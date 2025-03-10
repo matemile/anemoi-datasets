@@ -18,6 +18,7 @@ Filters are used to modify the data or metadata in a dataset.
    filters/orog_to_z
    filters/regrid
    filters/rename
+   filters/swap_nodata
    filters/rotate_winds
    filters/sum
    filters/unrotate_winds
