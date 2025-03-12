@@ -11,29 +11,7 @@
 from collections import defaultdict
 
 from earthkit.data.indexing.fieldlist import FieldArray
-
-
-class NewDataField:
-    def __init__(self, field, data, new_name):
-        self.field = field
-        self.data = data
-        self.new_name = new_name
-
-    def to_numpy(self, *args, **kwargs):
-        return self.data
-
-    def metadata(self, key=None, **kwargs):
-        if key is None:
-            return self.field.metadata(**kwargs)
-
-        value = self.field.metadata(key, **kwargs)
-        if key == "param":
-            return self.new_name
-        return value
-
-    def __getattr__(self, name):
-        return getattr(self.field, name)
-
+from .remove_nans_radar import NewDataField
 
 def execute(context, input, nomask, mask="mask"):
     """Convert nomask [0-1] to mask [1-0]"""

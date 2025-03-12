@@ -118,17 +118,17 @@ def _fields_metatata(variables: Tuple[str, ...], cube: Any) -> Dict[str, Any]:
             md["param"] = str(f.metadata("paramId", default="unknown"))
             # assert md['param'] != 'unknown', (md, f.metadata('param'))
 
-        startStep = f.metadata("startStep", default=None)
+        startStep = None #f.metadata("startStep", default=None) MateMile: fix temporarily
         if startStep is not None:
             startStep = as_timedelta(startStep)
 
-        endStep = f.metadata("endStep", default=None)
+        endStep = None #f.metadata("endStep", default=None) MateMile: fix temporarily
         if endStep is not None:
             endStep = as_timedelta(endStep)
 
-        stepTypeForConversion = f.metadata("stepTypeForConversion", default=None)
-        typeOfStatisticalProcessing = f.metadata("typeOfStatisticalProcessing", default=None)
-        timeRangeIndicator = f.metadata("timeRangeIndicator", default=None)
+        stepTypeForConversion = None #f.metadata("stepTypeForConversion", default=None) MateMile: fix temporarily
+        typeOfStatisticalProcessing = None #f.metadata("typeOfStatisticalProcessing", default=None) MateMile: fix temporarily
+        timeRangeIndicator = None #f.metadata("timeRangeIndicator", default=None) MateMile: fix temporarily
 
         # GRIB1 precipitation accumulations are not correctly encoded
         if startStep == endStep and stepTypeForConversion == "accum":

@@ -7,4 +7,4 @@ input:
 
     - remove_nans_radar:
         raw: raw  # Name of nodata (input) variable
-        ppdata: pp    # Name of data (output) variable
+        pp: pp    # Name of data (output) variable
