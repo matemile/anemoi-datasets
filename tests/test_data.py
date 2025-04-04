@@ -19,6 +19,7 @@ from typing import Union
 from unittest.mock import patch
 
 import numpy as np
+import pytest
 import zarr
 from anemoi.utils.dates import frequency_to_string
 from anemoi.utils.dates import frequency_to_timedelta
@@ -64,7 +65,7 @@ def mockup_open_zarr(func: Callable) -> Callable:
 
 @cache
 def _(date: datetime.datetime, var: str, k: int = 0, e: int = 0, values: int = VALUES) -> np.ndarray:
-    """Create a simple array of values based on the date and variable name, ensemble, grid, and other parameters.
+    """Create a simple array of values based on the date, variable name, ensemble, grid, and other parameters.
 
     Parameters
     ----------
@@ -269,7 +270,7 @@ class IndexTester:
     """Class to test indexing of datasets."""
 
     def __init__(self, ds: Any) -> None:
-        """Initialize the IndexTester.
+        """Initialise the IndexTester.
 
         Parameters
         ----------
@@ -308,9 +309,9 @@ def make_row(*args: Any, ensemble: bool = False, grid: bool = False) -> np.ndarr
     *args : Any
         Additional arguments.
     ensemble : bool, optional
-        Whether to include ensemble dimension, by default False.
+        Whether to include the ensemble dimension, by default False.
     grid : bool, optional
-        Whether to include grid dimension, by default False.
+        Whether to include the grid dimension, by default False.
 
     Returns
     -------
@@ -360,7 +361,7 @@ class DatasetTester:
     """Class to test various dataset operations."""
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        """Initialize the DatasetTester.
+        """Initialise the DatasetTester.
 
         Parameters
         ----------
@@ -402,7 +403,7 @@ class DatasetTester:
         expected_variables : Union[str, list]
             Expected variables.
         expected_name_to_index : Union[str, dict]
-            Expected name to index mapping.
+            Expected name-to-index mapping.
         date_to_row : Callable
             Function to generate row data.
         start_date : datetime.datetime
@@ -1413,6 +1414,16 @@ def test_cropping() -> None:
         area=(18, 11, 11, 18),
     )
     assert test.ds.shape == (365 * 4, 4, 1, 8)
+
+
+@mockup_open_zarr
+def test_invalid_trim_edge() -> None:
+    """Test that exception raised when attempting to trim a 1D dataset"""
+    with pytest.raises(ValueError):
+        DatasetTester(
+            "test-2021-2021-6h-o96-abcd",
+            trim_edge=(1, 2, 3, 4),
+        )
 
 
 if __name__ == "__main__":

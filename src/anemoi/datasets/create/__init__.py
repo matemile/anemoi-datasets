@@ -294,7 +294,14 @@ class Dataset:
         import zarr
 
         z = zarr.open(self.path, mode="r")
-        return loader_config(z.attrs.get("_create_yaml_config"))
+        config = loader_config(z.attrs.get("_create_yaml_config"))
+
+        if "env" in config:
+            for k, v in config["env"].items():
+                LOG.info(f"Setting env variable {k}={v}")
+                os.environ[k] = str(v)
+
+        return config
 
 
 class WritableDataset(Dataset):
@@ -545,7 +552,7 @@ class HasElementForDataMixin:
         self.output = build_output(config.output, parent=self)
 
         self.input = build_input_(main_config=config, output_config=self.output)
-        LOG.info("%s", self.input)
+        # LOG.info("%s", self.input)
 
 
 def build_input_(main_config: Any, output_config: Any) -> Any:
@@ -1208,7 +1215,7 @@ class _InitAdditions(Actor, HasRegistryMixin, AdditionsMixin):
         self.tmp_storage = build_storage(directory=self.tmp_storage_path, create=True)
         self.tmp_storage.delete()
         self.tmp_storage.create()
-        LOG.info(f"Dataset {self.tmp_storage_path} additions initialized.")
+        LOG.info(f"Dataset {self.tmp_storage_path} additions initialised.")
 
     def cleanup(self) -> None:
         """Clean up the temporary storage."""
