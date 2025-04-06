@@ -1,0 +1,11 @@
+input:
+  pipe:
+    - source: # mars, grib, netcdf, etc.
+      # source attributes here
+      # ...
+      # Must load a nomask variable
+
+    - nordic_radar_preprocessing:
+        raw: raw  # Name of nodata (input) variable
+        mask: mask # Name of mask (input) variable
+        pp: pp    # Name of data (output) variable

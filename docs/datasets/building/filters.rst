@@ -21,6 +21,7 @@ Filters are used to modify the data or metadata in a dataset.
    filters/rotate_winds
    filters/sum
    filters/unrotate_winds
+   filters/nordic_radar_preprocessing
    filters/wz_to_w
    filters/noop
    filters/empty
